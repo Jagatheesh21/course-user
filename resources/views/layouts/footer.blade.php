@@ -157,7 +157,166 @@
     </div>
     <!-- /.search-popup -->
 
+    <!-- modal sections -->
 
+    <!-- LOGIN MODAL -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title title-box" id="exampleModalLabel">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="registration-one__right-form" style="
+    padding: 5px 25px 5px !important;">
+                                <!-- <div class="title-box">
+                                    <h4>Login</h4>
+                                </div> -->
+                                <span class="text-danger" id="login-error"></span>
+                                <div class="form-box">
+                                     <form method="POST" action="{{ route('login.custom') }}" id="LoginForm">
+                                     @csrf
+
+                                        <div class="form-group">
+                                            <input type="email" name="email" placeholder="Email Address" required="">
+                                             
+                                                <span class="text-danger" id="email-error"></span>
+                                             
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" name="password" placeholder="Password" required="">
+                                             
+                                             <span class="text-danger" id="password-error"></span>
+                                              
+                                        </div>
+
+
+                                        <button  class="registration-one__right-form-btn loginSubmit" type="button"
+                                            name="submit-form">
+                                            <span class="thm-btn">Login</span>
+                                        </button>
+                                        <p style="color: blue;" class="my-1">Resend Code <a style="color:orange;" href="{{route('resend_code')}}">Click Here</a></p>
+                                        <p class="mt-1">Don't have an account? <a style="color:orange;" data-toggle="modal" data-target="#registrationModal"> Sign up</a></p>
+                                    </form>
+                                </div>
+                            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- LOGIN MODAL -->
+
+    <!-- REGISTRATION MODAL -->
+    <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title title-box" id="exampleModalLabel">Fill your Registration</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="registration-one__right wow" style="
+    margin: 5px 0px 0px 0px !important;" >
+                            <div class="registration-one__right-form" style="
+    padding: 5px 25px 5px !important;">
+                                <!-- <div class="title-box">
+                                    <h4>Fill your Registration</h4>
+                                </div> -->
+                                 @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @if (Session::has('success'))
+                                    <div class="alert alert-success">
+                                        <ul>
+                                            <li>{{ Session::get('success') }}</li>
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    @if (Session::has('error'))
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            <li>{{ Session::get('error') }}</li>
+                                        </ul>
+                                    </div>
+                                    @endif
+
+                                <span id="registration-error" class="text-danger" style="display: none;"></span>
+                                <div class="form-box">
+                                    <form action="{{ route('register.custom') }}" method="POST" id="registrationForm">
+                                     @csrf
+                                        <div class="form-group">
+                                            <input type="text" name="username" id="username" placeholder="Your Name" value="{{ old('username') }}" required="">
+                                            
+                                           <span class="text-danger" id="reg-name-error" > </span>
+                                           
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="email" name="email" id="email" placeholder="Email Address" required="" value="{{ old('email') }}">
+                                            
+                                                <span class="text-danger" id="reg-email-error" >
+                                                    
+                                                </span>
+                                            
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="password" name="password" id="password" placeholder="Password" required="">
+                                            
+                                        </div>
+                                        <!-- Show Password <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span> -->
+                                        <span class="text-danger" id="reg-password-error" >
+                                                    
+                                                </span>
+                                        <div class="form-group">
+                                            <input type="password" name="confirm_password" id="confirm-password" placeholder="Confirm Password" required="" >
+                                            <span class="text-danger" id="reg-confirm-password-error" >
+                                                    
+                                                </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="phone" id="phone" placeholder="Phone" required="" value="{{ old('phone') }}">
+                                            <span class="text-danger" id="reg-phone-error" >
+                                                    
+                                                </span>
+                                        </div>
+
+                                        
+                                        <button class="btn registrationSubmit" type="button"
+                                            name="submit-form">
+                                            <span class="thm-btn">apply for it</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGISTRATION MODAL -->
+
+    <!-- modal sections -->
 
     <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
 
@@ -165,8 +324,8 @@
     <script src="{{asset('assets/vendors/jquery/jquery-3.5.1.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
     <script src="{{asset('assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="{{asset('assets/vendors/jarallax/jarallax.min.js')}}"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="{{asset('assets/vendors/jarallax/jarallax.min.js')}}"></script>
     <script src="{{asset('assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js')}}"></script>
     <script src="{{asset('assets/vendors/jquery-appear/jquery.appear.min.js')}}"></script>
     <script src="{{asset('assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js')}}"></script>
@@ -184,6 +343,7 @@
     <script src="{{asset('assets/vendors/twentytwenty/twentytwenty.js')}}"></script>
     <script src="{{asset('assets/vendors/twentytwenty/jquery.event.move.js')}}"></script>
     <script src="{{asset('assets/vendors/parallax/parallax.min.js')}}"></script>
+    <script src="{{asset('assets/toast-master/js/jquery.toast.js')}}"></script>
 
 
     <!-- <script src="http://maps.google.com/maps/api/js?key=AIzaSyATY4Rxc8jNvDpsK8ZetC7JyN4PFVYGCGM"></script> -->
@@ -192,6 +352,113 @@
     <script src="{{asset('assets/js/zilom.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
+            // Registration Ajax
+            $(".registrationSubmit").click(function(e){
+                e.preventDefault();
+                $("#registration-error").html("");
+                $("#reg-email-error").html("");
+                $("#reg-name-error").html("");
+                $("#reg-password-error").html("");
+                $("#reg-confirm-password-error").html("");
+                $("#reg-phone-error").html("");
+                var data = $("#registrationForm").serialize();
+                var url = "{{ route('register.custom') }}";
+
+                $.ajax({
+                    url:url,
+                    type:"POST",
+                    data:data,
+                    success:function(response)
+                    {
+                        console.log(response);
+                        if(response.errors)
+                        {
+                             if(response.errors.username){
+                                $( '#reg-name-error' ).html( response.errors.username[0] );
+                            }
+                            if(response.errors.email){
+                                $( '#reg-email-error' ).html( response.errors.email[0] );
+                            }
+                               
+                            if(response.errors.password){
+                                $( '#reg-password-error' ).html( response.errors.password[0] );
+                            }
+                             if(response.errors.confirm_password){
+                                $( '#reg-confirm-password-error' ).html( response.errors.confirm_password[0] );
+                            }
+
+                            if(response.errors.phone){
+                                $( '#reg-phone-error' ).html( response.errors.phone[0] );
+                            }
+                        }
+
+                        if(response.success) {
+                            $('#registrationModal').modal('hide');
+                            $.toast({
+                                    heading: 'Success',
+                                    text: 'Verification Email Send, Kindly Check your Inbox!',
+                                    position: 'top-right',
+                                    loaderBg:'#ff6849',
+                                    icon: 'success',
+                                    hideAfter: 3500
+                                });
+                            // setInterval(function(){ 
+                                
+                            //      //location.reload(); 
+                            // }, 3500);
+                        }
+                    }
+                });
+
+            });
+
+            // Login Ajax
+            $(".loginSubmit").click(function(e){
+                e.preventDefault();
+                $( '#login-error' ).html( "" );
+                $( '#email-error' ).html( "" );
+                $( '#password-error' ).html( "" );
+                $.ajax({
+                    url:"{{route('login.custom')}}",
+                    type:"POST",
+                    data:$("#LoginForm").serialize(),
+                     success:function(data) {
+                        console.log(data);
+                        if(data.errors) {
+                            
+                            if(data.errors.email){
+                                $( '#email-error' ).html( data.errors.email[0] );
+                            }
+                            if(data.errors.password){
+                                $( '#password-error' ).html( data.errors.password[0] );
+                            }
+                            
+                        }
+                        if(data.loginerror)
+                        {
+                            $( '#login-error' ).html( data.loginerror );
+                        }
+
+                        if(data.success) {
+                            
+                            $.toast({
+                                    heading: 'Success',
+                                    text: 'Successfully Logged In..',
+                                    position: 'top-right',
+                                    loaderBg:'#ff6849',
+                                    icon: 'success',
+                                    hideAfter: 3500
+                                });
+                            setInterval(function(){ 
+                                $('#loginModal').modal('hide');
+                                 location.reload(); 
+                            }, 3500);
+                        }
+                    },
+                });
+
+            });
+
             $('.customer-logos').slick({
                 slidesToShow: 7,
                 slidesToScroll: 1,

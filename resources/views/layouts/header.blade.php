@@ -36,6 +36,7 @@
     <!-- template styles -->
     <link rel="stylesheet" href="{{asset('assets/css/zilom.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/zilom-responsive.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/toast-master/css/jquery.toast.css')}}">
     <style>
         .customer-logos {
        background-color: white;
@@ -224,8 +225,15 @@
                                             </div>
                                             @guest
                                             <div class="main-menu__right-search-box">
-                                                <a href="{{route('login')}}" style="background: #9fa4c4;"  class="thm-btn">Login</a>
-                                                <a href="{{route('register-user')}}" style="background: #ffac81;"  class="thm-btn">Sign up</a>
+                                                <button type="button" class="thm-btn login" data-toggle="modal" data-target="#loginModal">
+                                                 Login
+                                                </button>
+                                                <button type="button" class="thm-btn registration" data-toggle="modal" data-target="#registrationModal" style="background: #ffac81;">
+                                                 Sign Up
+                                                </button>
+
+                                                <!-- <a href="#" data-toggle="modal" data-target="#loginModal" style="background: #9fa4c4;"  class="thm-btn">Login</a> -->
+                                                <!-- <a href="{{route('register-user')}}" style="background: #ffac81;"  class="thm-btn">Sign up</a> -->
                                             </div>
                                             @endguest
                                             @auth

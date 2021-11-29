@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Mail; 
 use App\Models\UserVerify;
 use Illuminate\Support\Facades\Validator;
+use Response;
 
 class AuthController extends Controller
 {
@@ -22,20 +23,33 @@ class AuthController extends Controller
 
     public function customLogin(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+     
+        // dd($request->all());
+
+        // $request->validate([
+        //     'email' => 'required',
+        //     'password' => 'required',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
         ]);
 
+        if ($validator->passes()) {
         $credentials = $request->only('email', 'password');
 
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('dashboard'))
-                        ->withSuccess('Signed in');
+            if (Auth::attempt($credentials)) {
+                // return redirect()->intended(route('dashboard'))
+                //              ->withSuccess('Signed in');
+                return Response::json(['success' => 'Successfully Login']);           
+            }else{
+                return Response::json(['loginerror' => 'Login details are not valid']);           
+            }
+        }else{
+          return Response::json(['errors' => $validator->errors()]);  
         }
-
-        return redirect("login")->with('message','Login details are not valid');
+        // return redirect("login")->with('message','Login details are not valid');
     }
 
 
@@ -65,14 +79,15 @@ class AuthController extends Controller
 
 
         if ($validator->fails()) {
-        	$errors = $validator->errors();
-            return redirect(route('register-user'))->withErrors($errors);
+        	//$errors = $validator->errors();
+            return Response::json(['errors' => $validator->errors()]); 
+            //return redirect(route('register-user'))->withErrors($errors);
         }
         $validated = $validator->validated();
         $data = $validated;
         $check = $this->create($data);
-
-       return back()->with('success','Verification Email Send, Kindly Check your Inbox!');
+         return Response::json(['success' => 'Verification Email Send, Kindly Check your Inbox!']);
+       // return back()->with('success','Verification Email Send, Kindly Check your Inbox!');
     }
 
 
