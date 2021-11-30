@@ -8,7 +8,7 @@
                         <div class="col-xl-2 col-lg-4 col-md-4 wow animated fadeInUp" data-wow-delay="0.1s">
                             <div class="footer-widget__column footer-widget__about">
                                 <div class="footer-widget__about-logo">
-                                    <a href="index.html"><img src="{{asset('assets/images/resources/footer-logo.png')}}" alt=""></a>
+                                    <a href="index.html"><img src="{{asset('assets/images/logo-loader.png')}}" alt="" width="150px" height="100px"></a>
                                 </div>
                             </div>
                         </div>

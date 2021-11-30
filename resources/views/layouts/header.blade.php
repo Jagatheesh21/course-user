@@ -195,7 +195,7 @@
                                 <div class="left">
                                     <div class="logo-box1">
                                         <a href="{{route('home')}}">
-                                            <img src="{{asset('assets/images/logo.jpg')}}" width="120px" height="80px"  alt="">
+                                            <img src="{{asset('assets/images/logo-loader.png')}}" width="150px"  alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -287,7 +287,7 @@
                                 <li class="main-header--two__top-contact-info-single">
 
                                     <div class="text">
-                                        <p style="text-decoration-color: white !important;">{{$priority->cat_name}}</p>
+                                        <p style="text-decoration-color: white !important;"><a href="">{{$priority->cat_name}}</a></p>
                                     </div>
                                 </li>
                                 @empty
