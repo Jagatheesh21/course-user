@@ -15,8 +15,8 @@
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{asset('assets/vendors/bootstrap/css/bootstrap.min.css')}}" />
+<!-- 
+    <link rel="stylesheet" href="{{asset('assets/vendors/bootstrap/css/bootstrap.min.css')}}" /> -->
     <link rel="stylesheet" href="{{asset('assets/vendors/animate/animate.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendors/animate/custom-animate.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendors/fontawesome/css/all.min.css')}}" />
@@ -37,6 +37,16 @@
     <link rel="stylesheet" href="{{asset('assets/css/zilom.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/zilom-responsive.css')}}" />
     <link rel="stylesheet" type="text/css" href="{{asset('assets/toast-master/css/jquery.toast.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+@auth
+<script type="text/javascript">
+    $(document).ready(function(){
+            //$("#loginModal").modal("show");
+        });
+</script>
+@endauth
     <style>
         .customer-logos {
        background-color: white;
@@ -185,7 +195,7 @@
                                 <div class="left">
                                     <div class="logo-box1">
                                         <a href="{{route('home')}}">
-                                            <img src="{{asset('assets/images/resources/logo-1.png')}}" alt="">
+                                            <img src="{{asset('assets/images/logo.jpg')}}" width="120px" height="80px"  alt="">
                                         </a>
                                     </div>
                                 </div>
@@ -272,14 +282,18 @@
                     <div  class="main-header--two__top-inner clearfix">
                         <div class="main-header--two__top-left">
                             <ul class="main-header--two__top-contact-info list-unstyled">
+                                @php $priority_categories = \App\Models\Category::all(); @endphp
+                                @forelse($priority_categories as $key=>$priority)
                                 <li class="main-header--two__top-contact-info-single">
 
                                     <div class="text">
-                                        <p><a href="tel:123456789">Entrepreneurship</a></p>
+                                        <p style="text-decoration-color: white !important;">{{$priority->cat_name}}</p>
                                     </div>
                                 </li>
+                                @empty
+                                @endforelse
 
-                                <li class="main-header--two__top-contact-info-single">
+                                <!-- <li class="main-header--two__top-contact-info-single">
 
                                     <div class="text">
                                         <p><a href="mailto:info@templatepath.com">Marketing</a></p>
@@ -314,7 +328,7 @@
                                     <div class="text">
                                         <p><a href="mailto:info@templatepath.com"> HR Management</a></p>
                                     </div>
-                                </li>
+                                </li> -->
 
                             </ul>
                         </div>

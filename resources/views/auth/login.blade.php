@@ -74,7 +74,7 @@
                                             name="submit-form">
                                             <span class="thm-btn">Login</span>
                                         </button>
-                                        <p style="color: blue;" class="my-1">Resend Code <a style="color:orange;" href="{{route('resend_code')}}">Click Here</a></p>
+                                        <!-- <p style="color: blue;" class="my-1">Forgot Password <a style="color:orange;" href="{{route('resend_code')}}">Click Here</a></p> -->
                                         <p class="mt-1">Don't have an account? <a style="color:orange;" href="{{route('register-user')}}"> Sign up</a></p>
                                     </form>
                                 </div>

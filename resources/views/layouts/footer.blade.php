@@ -160,7 +160,7 @@
     <!-- modal sections -->
 
     <!-- LOGIN MODAL -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -200,7 +200,7 @@
                                             name="submit-form">
                                             <span class="thm-btn">Login</span>
                                         </button>
-                                        <p style="color: blue;" class="my-1">Resend Code <a style="color:orange;" href="{{route('resend_code')}}">Click Here</a></p>
+                                        <!-- <p style="color: blue;" class="my-1">Resend Code <a style="color:orange;" href="{{route('resend_code')}}">Click Here</a></p> -->
                                         <p class="mt-1">Don't have an account? <a style="color:orange;" data-toggle="modal" data-target="#registrationModal"> Sign up</a></p>
                                     </form>
                                 </div>
@@ -321,10 +321,10 @@
     <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
 
 
-    <script src="{{asset('assets/vendors/jquery/jquery-3.5.1.min.js')}}"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
-    <script src="{{asset('assets/vendors/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    
     <script src="{{asset('assets/vendors/jarallax/jarallax.min.js')}}"></script>
     <script src="{{asset('assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js')}}"></script>
     <script src="{{asset('assets/vendors/jquery-appear/jquery.appear.min.js')}}"></script>
@@ -350,11 +350,17 @@
 
     <!-- template js -->
     <script src="{{asset('assets/js/zilom.js')}}"></script>
+   
+
     <script type="text/javascript">
+
         $(document).ready(function(){
+            var url ="{!! Request::segment(1) !!}";
+            
             // Registration Ajax
             $(".registrationSubmit").click(function(e){
                 e.preventDefault();
+                $('#loginModal').modal('hide');
                 $("#registration-error").html("");
                 $("#reg-email-error").html("");
                 $("#reg-name-error").html("");
@@ -415,6 +421,7 @@
             // Login Ajax
             $(".loginSubmit").click(function(e){
                 e.preventDefault();
+                $('#registrationModal').modal('hide');
                 $( '#login-error' ).html( "" );
                 $( '#email-error' ).html( "" );
                 $( '#password-error' ).html( "" );

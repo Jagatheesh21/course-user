@@ -19,7 +19,7 @@ use App\Http\Controllers\EnrollmentController;
 */
 
 
-Route::get('/home', [CourseController::class, 'index'])->name('home');
+Route::get('/', [CourseController::class, 'index'])->name('home');
 Route::get('/about', [CourseController::class, 'About'])->name('about');
 Route::get('/contact', [CourseController::class, 'Contact'])->name('contact');
 Route::get('/course-detail',[CourseController::class, 'detail'])->name('course-detail');
@@ -37,4 +37,5 @@ Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'
 Route::get('slots',[CourseController::class, 'Slots'])->name('slots');
 
 Route::get('slot_details',[EnrollmentController::class, 'Slotdetail'])->name('slot_details')->middleware(['is_verify_email']);
+Route::get('enrollment/notify', EnrollmentController::class,'Notify', ['names' => 'enrollment.notify'])->middleware(['is_verify_email']);
 Route::resource('enrollment', EnrollmentController::class, ['names' => 'enrollment'])->middleware(['is_verify_email']);

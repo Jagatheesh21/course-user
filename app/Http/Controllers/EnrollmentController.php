@@ -125,4 +125,8 @@ class EnrollmentController extends Controller
       $slot = Slot::with(['course'])->where('slug',$request->slot)->first();
       return view('modules.slot_details',['slot'=>$slot]);
     }
+    public function Notify(Request $request)
+    {
+      dd($request->all());
+    }
 }

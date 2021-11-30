@@ -94,4 +94,9 @@
     </section>
     <!--End Teaching One-->
     <br>
+@if (session('error'))
+<script type="text/javascript">
+    $('#loginModal').modal('open'); //include your model id
+</script>
+@endif
 @include('layouts.footer')
