@@ -181,9 +181,10 @@
                 </div>
                 <div class="row">
                     @forelse($courses as $course)
+                    @if($course->slots_count)
                     <!--Start Single Courses One-->
                     <div class="col-xl-3 col-lg-6 col-md-6">
-                    <a href="{{route('course-detail',['course' => $course->slug])}}">
+                    <a href="{{route('course-detail')}}/{{$course->slug}}">
                         <div class="courses-one__single wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1000ms" >
                             <div class="courses-one__single-img">
                                 <img src="{{asset('assets/images/resources/coding.jpg')}}" alt="" />
@@ -222,6 +223,13 @@
                     </a>
                     </div>
                     <!--End Single Courses One-->
+                    @else
+                    <div class="section-title">
+
+                        <h6>No Courses Yet!</h6>
+                        
+                    </div>
+                    @endif
                     @empty
                     <div class="section-title">
 

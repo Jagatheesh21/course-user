@@ -22,7 +22,7 @@ use App\Http\Controllers\EnrollmentController;
 Route::get('/', [CourseController::class, 'index'])->name('home');
 Route::get('/about', [CourseController::class, 'About'])->name('about');
 Route::get('/contact', [CourseController::class, 'Contact'])->name('contact');
-Route::get('/course-detail',[CourseController::class, 'detail'])->name('course-detail');
+Route::get('/course-detail/{slug?}',[CourseController::class, 'detail'])->name('course-detail');
 Route::get('/module/module_details',[ModuleController::class, 'detail'])->name('module_details');
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
@@ -31,11 +31,11 @@ Route::post('send_code', [AuthController::class, 'sendCode'])->name('send_code')
 Route::post('custom-login', [AuthController::class, 'customLogin'])->name('login.custom');
 Route::get('registration', [AuthController::class, 'registration'])->name('register-user');
 Route::post('custom-registration', [AuthController::class, 'customRegistration'])->name('register.custom');
-Route::get('account/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify');
+Route::post('account/verify', [AuthController::class, 'verifyAccount'])->name('user.verify');
 Route::get('signout', [AuthController::class, 'signOut'])->name('signout');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth','is_verify_email']);
-Route::get('slots',[CourseController::class, 'Slots'])->name('slots');
+Route::get('slots/{course_id?}',[CourseController::class, 'Slots'])->name('slots');
 
-Route::get('slot_details',[EnrollmentController::class, 'Slotdetail'])->name('slot_details')->middleware(['is_verify_email']);
-Route::get('enrollment/notify', EnrollmentController::class,'Notify', ['names' => 'enrollment.notify'])->middleware(['is_verify_email']);
+Route::get('slot_details/{course_id?}/{slot_id?}',[EnrollmentController::class, 'Slotdetail'])->name('slot_details')->middleware(['is_verify_email']);
+Route::get('enrollment/notify', [EnrollmentController::class,'Notify'])->name('enrollment.notify');
 Route::resource('enrollment', EnrollmentController::class, ['names' => 'enrollment'])->middleware(['is_verify_email']);

@@ -296,7 +296,7 @@
                         <div class="course-details__price wow fadeInUp animated" data-wow-delay="0.1s">
                             <h2 class="course-details__price-amount">${{number_format($course->slots()->first()->price,2)}}</h2>
                             <div class="course-details__price-btn">
-                                <a href="{{route('slots',['course'=>$course->slug])}}" class="thm-btn">Enroll Now</a>
+                                <a href="javascript:void(0);" class="thm-btn enrollNow" Onclick="GetSlotDetails({{$course->id}});">Enroll Now</a>
                             </div>
                         </div>
 
@@ -343,7 +343,9 @@
                                         <a href=""><i class="far fa-flag"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="javascript:void(0)">Skill Level:<span>{{$course->slots->first()->skill_level->name??""}}</span></a></p>
+                                        <p><a href="javascript:void(0)">Skill Level:<span>
+
+                                            {{$course->skill_level->name}}</span></a></p>
                                     </div>
                                 </li>
 
@@ -352,9 +354,21 @@
                                         <a href=""><i class="far fa-bell"></i></a>
                                     </div>
                                     <div class="text">
-                                        <p><a href="javascript:void(0)">Language:<span>{{$course->slots->first()->language->name??""}}</span></a></p>
+                                        <p><a href="javascript:void(0)">Language:<span>{{$course->language->name??""}}</span></a></p>
                                     </div>
                                 </li>
+                            </ul>
+                        </div>
+
+                        <div class="sidebar__single sidebar__tags wow fadeInUp animated mt-5" data-wow-delay="0.5s">
+                            <h3 class="sidebar__title">Tags</h3>
+                            <ul class="sidebar__tags-list list-unstyled">
+                                @php $tags = explode(',',$course->tags);
+                                @endphp
+                                @forelse($tags as $tag)
+                                <li><a href="#">{{$tag}}</a></li>
+                                @empty
+                                @endforelse
                             </ul>
                         </div>
 
@@ -435,4 +449,24 @@
         </div>
     </section>
     <!--End Course Details-->
+    <!-- SLOT MODAL -->
+    <div class="modal fade" id="slotModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title title-box" id="exampleModalLabel">Slot Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body slot-content">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SLOT MODAL -->
 @include('layouts.footer')

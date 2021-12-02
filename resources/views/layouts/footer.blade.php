@@ -316,6 +316,44 @@
 
     <!-- REGISTRATION MODAL -->
 
+
+    <!-- VERIFICATION MODAL --->
+
+    <div class="modal fade" id="verificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title title-box" id="exampleModalLabel">Verification</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <span id="verification-error" class="text-danger"></span>
+            <span id="verification-inital" class="text-success"></span>
+            <form class="form" id="verificationForm" method="POST" action="{{route('user.verify')}}">
+                @csrf
+                <div class="form-group">
+                    <input type="text" class="form-control" name="verification_code"  placeholder="Enter Verification Code Here.." required="" >
+                    <span class="text-danger" id="verification-code-error" >
+                            
+                        </span>
+                </div>
+                <button class="btn verificationSubmit" type="button"
+                    name="submit-form">
+                    <span class="thm-btn">Verify Now</span>
+                </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERFIFICATION MODAL --->
+
     <!-- modal sections -->
 
     <a href="#" data-target="html" class="scroll-to-target scroll-to-top"><i class="fa fa-angle-up"></i></a>
@@ -376,7 +414,7 @@
                     data:data,
                     success:function(response)
                     {
-                        console.log(response);
+                        //console.log(response);
                         if(response.errors)
                         {
                              if(response.errors.username){
@@ -400,14 +438,65 @@
 
                         if(response.success) {
                             $('#registrationModal').modal('hide');
-                            $.toast({
-                                    heading: 'Success',
-                                    text: 'Verification Email Send, Kindly Check your Inbox!',
-                                    position: 'top-right',
-                                    loaderBg:'#ff6849',
-                                    icon: 'success',
-                                    hideAfter: 3500
-                                });
+                            $("#verification-inital").html("Activation Code has been sent to your email, Please check and activate");
+                            $('#verificationModal').modal('show');
+                            // $.toast({
+                            //         heading: 'Success',
+                            //         text: 'Verification Email Send, Kindly Check your Inbox!',
+                            //         position: 'top-right',
+                            //         loaderBg:'#ff6849',
+                            //         icon: 'success',
+                            //         hideAfter: 3500
+                            //     });
+                            // setInterval(function(){ 
+                                
+                            //      //location.reload(); 
+                            // }, 3500);
+                        }
+                    }
+                });
+
+            });
+
+            // Verification Ajax
+
+            $(".verificationSubmit").click(function(e){
+                e.preventDefault();
+                $('#loginModal').modal('hide');
+                $('#registrationModal').modal('hide');
+                $("#verification-error").html("");
+                $("#verification-code-error").html("");
+                $("#verification-inital").html("");
+                var data = $("#verificationForm").serialize();
+                var url = "{{ route('user.verify') }}";
+
+                $.ajax({
+                    url:url,
+                    type:"POST",
+                    data:data,
+                    success:function(response)
+                    {
+                        console.log(response);
+                        if(response.errors)
+                        {
+                             if(response.errors.verification_code){
+                                $( '#verification-code-error' ).html( response.errors.verification_code[0] );
+                            }
+                            
+                        }
+
+                        if(response.success) {
+                            
+                            $('#verificationModal').modal('hide');
+                            $('#loginModal').modal("show");
+                            // $.toast({
+                            //         heading: 'Success',
+                            //         text: 'Verification Email Send, Kindly Check your Inbox!',
+                            //         position: 'top-right',
+                            //         loaderBg:'#ff6849',
+                            //         icon: 'success',
+                            //         hideAfter: 3500
+                            //     });
                             // setInterval(function(){ 
                                 
                             //      //location.reload(); 

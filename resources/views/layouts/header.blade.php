@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicons/favicon-16x16.png')}}" />
     <link rel="manifest" href="{{asset('assets/images/favicons/site.webmanifest')}}" />
     <meta name="description" content="Onilne Courses" />
-
+<meta name="csrf-token" content="{!! csrf_token() !!}">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap" rel="stylesheet">
@@ -40,13 +40,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-@auth
+
 <script type="text/javascript">
-    $(document).ready(function(){
-            //$("#loginModal").modal("show");
-        });
+   
+    function GetSlotDetails(course_id)
+    {
+        var auth = $(".is_auth").val();
+       
+        if(auth=="yes")
+        {
+            $.ajax({
+                url:"{{route('slots')}}/"+course_id,
+                type:"GET",
+                success:function(response){
+                console.log(response);
+                $(".slot-content").html(response.html);
+                $("#slotModal").modal("show");
+                }
+
+            });
+
+        }else{
+            $("#loginModal").modal("show");
+        }
+    }
+
+    //$("#loginModal").modal("show");
+    
 </script>
-@endauth
+
     <style>
         .customer-logos {
        background-color: white;
@@ -234,6 +256,7 @@
 
                                             </div>
                                             @guest
+                                            
                                             <div class="main-menu__right-search-box">
                                                 <button type="button" class="thm-btn login" data-toggle="modal" data-target="#loginModal">
                                                  Login
@@ -241,32 +264,26 @@
                                                 <button type="button" class="thm-btn registration" data-toggle="modal" data-target="#registrationModal" style="background: #ffac81;">
                                                  Sign Up
                                                 </button>
-
+                                                <input type="hidden" name="auth" class="is_auth" value="no">
                                                 <!-- <a href="#" data-toggle="modal" data-target="#loginModal" style="background: #9fa4c4;"  class="thm-btn">Login</a> -->
                                                 <!-- <a href="{{route('register-user')}}" style="background: #ffac81;"  class="thm-btn">Sign up</a> -->
                                             </div>
                                             @endguest
                                             @auth
+                                            
                                             <div class="main-menu__right-search-box">
                                                 <a href="{{route('dashboard')}}" style="background: #9fa4c4;"  class="thm-btn">Dashboard</a>
                                                 <a href="{{route('signout')}}" style="background: #ffac81;"  class="thm-btn">Logout</a>
+
+                                                <input type="hidden" name="auth" class="is_auth" value="yes">
+                                                <input type="hidden" name="student_id" class="student_id" value="{{auth()->user()->id}}">
                                             </div>
                                             @endauth
 
 
 
                                         </div>
-                                         @auth
-                                        <ul class="main-menu__list">
-                                            <li class="dropdown">
-                                                <!-- <a href="#" style="color:black; padding: 5px 50px 5px 50px; border-radius: 10px;background: lightblue;" class="btn btn-sm">{{ Auth::user()->name }}</a> -->
-                                                <ul>
-                                                    <li><a href="{{route('dashboard')}}">Dashboard</a></li>
-                                                    <li><a href="{{route('signout')}}">Logout</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                     @endauth
+                                        
 
                                     </div>
                                 </div>
@@ -282,7 +299,7 @@
                     <div  class="main-header--two__top-inner clearfix">
                         <div class="main-header--two__top-left">
                             <ul class="main-header--two__top-contact-info list-unstyled">
-                                @php $priority_categories = \App\Models\Category::all(); @endphp
+                                @php $priority_categories = \App\Models\Category::where('priority','!=',NULL)->get(); @endphp
                                 @forelse($priority_categories as $key=>$priority)
                                 <li class="main-header--two__top-contact-info-single">
 

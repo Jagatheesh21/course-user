@@ -128,10 +128,20 @@ class AuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return Redirect('login');
+        return back();
     }
-     public function verifyAccount($token)
+     public function verifyAccount(Request $request)
     {
+        $token = $request->verification_code;
+
+         $validator = Validator::make($request->all(), [
+            'verification_code' => 'required',
+        ]);
+
+         if ($validator->fails()) {
+            return Response::json(['errors' => $validator->errors()]); 
+        }
+
         $verifyUser = UserVerify::where('token', $token)->first();
   
         $message = 'Sorry your email cannot be identified.';
@@ -146,9 +156,12 @@ class AuthController extends Controller
             } else {
                 $message = "Your e-mail is already verified. You can now login.";
             }
+            return Response::json(['success' => $message]);
+        }else{
+            return Response::json(['error' => $message]);
         }
   
-      return redirect()->route('login')->with('message', $message);
+      //return redirect()->route('login')->with('message', $message);
     }
     public function resendCode()
     {

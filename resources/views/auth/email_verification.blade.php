@@ -266,7 +266,7 @@
     }
   
     .headerContent.centeredWithBackground {
-      background-color: #F4EEE2;
+      background-color: #42378f;
       text-align: center;
       padding-top: 20px;
       padding-bottom: 20px;
@@ -339,7 +339,7 @@
                   <tr>
                     <td class="headerContent centeredWithBackground" style="border-collapse:collapse;color:#202020;font-family:Arial;font-size:34px;font-weight:bold;line-height:100%;padding:0;text-align:center;vertical-align:middle;background-color:#F4EEE2;padding-bottom:20px;padding-top:20px;">
                       <!-- // Begin Module: Standard Header Image \\ -->
-                      <img width="130" src="{{asset('assets/resources/logo-4.png')}}" style="width:130px;max-width:130px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;" id="headerImage campaign-icon">
+                      <img width="130" src="{{asset('assets/images/logo-loader.png')}}" style="width:130px;max-width:130px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;" id="headerImage campaign-icon">
                       <!-- // End Module: Standard Header Image \\ -->
                     </td>
                   </tr>
@@ -363,11 +363,11 @@
                               <!-- <h2 class="h2">Heading 2</h2>
                                                                 <h3 class="h3">Heading 3</h3>
                                                                 <h4 class="h4">Heading 4</h4> -->
-                              <p>Please click the button below to verify your email.</p>
+                              <p>Your Activation Code is <span>{{$token}}</span></p>
                             </div>
                           </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <td align="center" style="border-collapse:collapse;">
                             <table border="0" cellpadding="0" cellspacing="0" style="padding-bottom:10px;">
                               <tbody>
@@ -379,7 +379,7 @@
                               </tbody>
                             </table>
                           </td>
-                        </tr>
+                        </tr> -->
                       </table>
                       <!-- // End Module: Standard Content \\ -->
                     </td>
